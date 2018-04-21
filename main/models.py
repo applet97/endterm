@@ -26,7 +26,7 @@ class Product(models.Model):
 	"""
 	title = models.CharField(max_length=100)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
+	is_active = models.BooleanField(default=True)
 	def __unicode__(self):
 		return "{} ({})".format(self.title, self.category)
 

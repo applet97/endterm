@@ -1,9 +1,10 @@
 {% block content %}
 	<!-- <table class="table"> -->
+	<h2>Categories</h2>
 	{% for ctg in categories%} 
 		<div>
 		<td>
-			{{ctg.title}}
+			<a href={% url 'get_products' category_id=ctg.id%}>{{ctg.title}}</a>
 		</td>
 		</div>
 	{% endfor %}
