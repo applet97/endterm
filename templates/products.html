@@ -1,6 +1,6 @@
 {% block content %}
 	<!-- <table class="table"> -->
-	<h2>Products of category {{category_title}}</h2>
+	<h2>Products of category {{category.title}}</h2>
 	{% for pr in products%} 
 		<div>
 		<td>
@@ -10,6 +10,13 @@
 		</td>
 		</div>
 	{% endfor %}
+	<br>
+
+	<form method="post" action={% url 'add_product' category_id=category.id%}>
+		{%csrf_token%}
+		<input name="new_title"placeholder="Title">
+		<input type="submit" value="Add">
+	</form>
 	<br>
 	<a href={% url 'categories' %}>Back to categories</a>
 	<!-- </table> -->

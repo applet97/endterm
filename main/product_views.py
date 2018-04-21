@@ -4,13 +4,19 @@ from django.shortcuts import render, redirect
 from models import Product, Category
 # Create your views here.
 
-def create(request):
-	pass
+def add_product(request, category_id):
+	data = request.POST
+	new_title = data.get("new_title")
+	category = Category.objects.get(pk=category_id)
+	product = Product(title=new_title, category=category)
+	product.save()
+	products = Product.objects.filter(category=category, is_active=True)
+	return render(request, 'products.html', {"products": products, "category": category})
 
 def get_products(request, category_id):
 	category = Category.objects.get(pk=category_id)
 	products = Product.objects.filter(category=category, is_active=True)
-	return render(request, 'products.html', {"products": products, "category_title": category.title})
+	return render(request, 'products.html', {"products": products, "category": category})
 
 def edit_product(request, product_id):
 	product = Product.objects.get(pk=product_id)
@@ -23,8 +29,8 @@ def update_product(request, product_id):
 	product.title = new_title
 	product.save()
 	category = product.category
-	products = Product.objects.filter(category=category)
-	return render(request, 'products.html', {"products": products})
+	products = Product.objects.filter(category=category, is_active=True)
+	return render(request, 'products.html', {"products": products, "category": category})
 
 def delete_product(request, product_id):
 	product = Product.objects.get(pk=product_id)
@@ -32,4 +38,5 @@ def delete_product(request, product_id):
 	product.save()
 	category = product.category
 	products = Product.objects.filter(category=category, is_active=True)
-	return render(request, 'products.html', {"products": products})	
+	return render(request, 'products.html', {"products": products, "category": category})
+
