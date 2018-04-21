@@ -1,0 +1,11 @@
+{% block content %}
+	<!-- <table class="table"> -->
+	{% for ctg in categories%} 
+		<div>
+		<td>
+			{{ctg.title}}
+		</td>
+		</div>
+	{% endfor %}
+	<!-- </table> -->
+{% endblock content %}
